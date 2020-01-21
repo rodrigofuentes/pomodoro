@@ -10,7 +10,7 @@
 		"build": "webpack --mode production",
 		"dist:clean": "rimraf ./dist/*",
 		"server:start": "nodemon ./server/index.js",
-		"both":"npm run dev & npm run server:start"
+		"both": "npm run dev & npm run server:start"
 	},
 	"keywords": [
 		"react",
