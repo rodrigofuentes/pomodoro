@@ -13,6 +13,7 @@ const oAuthController = require('./controllers/oAuthController.js');
 const taskRouter = require('./routers/taskRouter.js');
 const habitRouter = require('./routers/habitRouter.js');
 const noteRouter = require('./routers/noteRouter.js');
+const quoteRouter = require('./routers/quoteRouter.js');
 const taskController = require('./controllers/taskController.js');
 const habitController = require('./controllers/habitController.js');
 const noteController = require('./controllers/noteController.js');
@@ -55,6 +56,25 @@ app.use('/note', noteRouter);
 
 // app.use('/quote', (req, res) => {
 //   const { quotes } = req.body;
+app.use('/quote', quoteRouter);
+
+// get quotes from DB
+// app.get('/quote', (req, res) => {
+//   const queryString = 'SELECT * FROM quotes';
+//   db.query(queryString, (err, data) => {
+//     if (err) {
+//       console.log('error getting quotes');
+//     }
+//     console.log(`Successfully retrieved ${data.rows.length} quotes from DB`);
+//     res.locals.quotes = data.rows;
+//     res.status(200).send(res.locals.quotes);
+//   });
+// });
+
+// post quotes to DB
+// app.post('/quote', (req, res) => {
+//   const { quotes } = req.body;
+//   console.log('quotes: ', quotes);
 //   const queryString = 'INSERT INTO quotes (text, author) VALUES ($1, $2) RETURNING *';
 //   res.locals.quotes = [];
 //   quotes.forEach((el) => {
@@ -67,8 +87,10 @@ app.use('/note', noteRouter);
 //       res.locals.quotes.push(data.rows[0]);
 //     });
 //   });
-//   res.status(200).json(res.locals.quotes);
+//   res.status(200).send(res.locals.quotes);
 // });
 
 // listen on 3000
 app.listen(3000, () => console.log('Server listening on 3000'));
+
+module.exports = app;
