@@ -36,7 +36,7 @@ taskController.addTask = (req, res, next) => {
 
 taskController.updateTask = (req, res, next) => {
   const { id, task } = req.body;
-  const queryString = 'UPDATE tasks SET task = $1 WHERE id = $2';
+  const queryString = 'UPDATE tasks SET task = $1 WHERE id = $2 RETURNING *';
   const values = [task, id];
   db.query(queryString, values, (err, data) => {
     if (err) {

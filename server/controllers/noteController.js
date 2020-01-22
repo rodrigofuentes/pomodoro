@@ -20,21 +20,37 @@ noteController.getNotes = (req, res, next) => {
 noteController.addNote = (req, res, next) => {
   const { note } = req.body;
   const values = [note];
-  const queryString = 'INSERT INTO notes (note) VALUES ($1) RETURNING *';
+  const queryString = 'INSERT INTO notes (notes) VALUES ($1) RETURNING *';
   db.query(queryString, values, (err, data) => {
     if (err) {
+      console.log(err);
       return next({
         log: 'Error adding note from DB.  See noteController.addNote',
         message: 'Error adding note from DB.  See noteController.addNote',
       });
     }
     console.log('Successfully added note to the DB: ', data.rows);
-    res.locals.notes = data.rows;
+    res.locals.note = data.rows;
     return next();
   });
 };
 
-noteController.updateNote = (req, res, next) => {};
+noteController.updateNote = (req, res, next) => {
+  const { id, note } = req.body;
+  const queryString = 'UPDATE notes SET note = $1 WHERE id = $2 RETURNING *';
+  const values = [note, id];
+  db.query(queryString, values, (err, data) => {
+    if (err) {
+      return next({
+        log: 'Error updating note in DB.  See noteController.updateNote',
+        message: 'Error updating note in DB.  See noteController.updateNote',
+      });
+    }
+    console.log('Successfully updated note in the DB: ', data.rows);
+    res.locals.notes = data.rows;
+    return next();
+  });
+};
 
 noteController.deleteNote = (req, res, next) => {};
 
