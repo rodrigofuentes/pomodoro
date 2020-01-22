@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 
 // handle login requests
 app.post('/login', (req, res) => {
+  // check if user exists and password matches and send jwt cookie
   res.status(200).json();
 });
 
