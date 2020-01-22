@@ -18,13 +18,13 @@ noteRouter.post('/', noteController.addNote, (req, res) => {
 // handle updating a Task
 noteRouter.put('/', noteController.updateNote, (req, res) => {
   console.log('noteRouter: Inside UPDATE');
-  res.status(200).json();
+  res.status(200).json(res.locals.note);
 });
 
 // handle deleting a Task
 noteRouter.delete('/', noteController.deleteNote, (req, res) => {
   console.log('noteRouter: Inside DELETE');
-  res.status(200).json();
+  res.status(200).json(res.locals.note);
 });
 
 module.exports = noteRouter;

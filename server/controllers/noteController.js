@@ -37,7 +37,7 @@ noteController.addNote = (req, res, next) => {
 
 noteController.updateNote = (req, res, next) => {
   const { id, note } = req.body;
-  const queryString = 'UPDATE notes SET note = $1 WHERE id = $2 RETURNING *';
+  const queryString = 'UPDATE notes SET notes = $1 WHERE id = $2 RETURNING *';
   const values = [note, id];
   db.query(queryString, values, (err, data) => {
     if (err) {
@@ -47,11 +47,26 @@ noteController.updateNote = (req, res, next) => {
       });
     }
     console.log('Successfully updated note in the DB: ', data.rows);
-    res.locals.notes = data.rows;
+    res.locals.note = data.rows;
     return next();
   });
 };
 
-noteController.deleteNote = (req, res, next) => {};
+noteController.deleteNote = (req, res, next) => {
+  const { id } = req.body;
+  const queryString = 'DELETE FROM notes WHERE id = $1 RETURNING *';
+  const values = [id];
+  db.query(queryString, values, (err, data) => {
+    if (err) {
+      return next({
+        log: 'Error deleting note in DB.  See noteController.deleteNote',
+        message: 'Error deleting note in DB.  See noteController.deleteNote',
+      });
+    }
+    console.log('Successfully deleted note in the DB: ', data.rows);
+    res.locals.note = data.rows;
+    return next();
+  });
+};
 
 module.exports = noteController;
