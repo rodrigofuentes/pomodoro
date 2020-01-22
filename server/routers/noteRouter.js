@@ -1,9 +1,10 @@
 const express = require('express');
 
 const noteRouter = express.Router();
+const noteController = require('../controllers/noteController');
 
 // handle Task retrieval
-noteRouter.get('/note', (req, res) => {
+noteRouter.get('/', noteController.getNotes, (req, res) => {
   console.log('noteRouter: Inside GET');
   res.status(200).json();
 });

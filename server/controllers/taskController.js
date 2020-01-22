@@ -6,14 +6,14 @@ taskController.getTasks = (req, res, next) => {
   const queryString = 'SELECT * FROM tasks';
   db.query(queryString, (err, data) => {
     if (err) {
-      next({
+      return next({
         log: 'Error getting tasks to DB.  See taskController.getTasks',
         message: 'Error getting tasks to DB.  See taskController.getTasks',
       });
     }
     console.log(`Successfully retrieved ${data.rows.length} tasks from DB`);
     res.locals.tasks = data.rows;
-    next();
+    return next();
   });
 };
 
@@ -23,7 +23,7 @@ taskController.addTask = (req, res, next) => {
   const queryString = 'INSERT INTO tasks (task, priority) VALUES ($1, $2) RETURNING *';
   db.query(queryString, values, (err, data) => {
     if (err) {
-      next({
+      return next({
         log: 'Error adding task to DB.  See taskController.addTask',
         message: 'Error adding task to DB.  See taskController.addTask',
       });
@@ -40,7 +40,7 @@ taskController.updateTask = (req, res, next) => {
   const values = [task, id];
   db.query(queryString, values, (err, data) => {
     if (err) {
-      next({
+      return next({
         log: 'Error updating task to DB.  See taskController.updateTask',
         message: 'Error updating task to DB.  See taskController.updateTask',
       });
@@ -56,7 +56,7 @@ taskController.deleteTask = (req, res, next) => {
   const values = [id];
   db.query(queryString, values, (err, data) => {
     if (err) {
-      next({
+      return next({
         log: 'Error deleting task from DB.  See taskController.deleteTask',
         message: 'Error deleting task from DB.  See taskController.deleteTask',
       });
