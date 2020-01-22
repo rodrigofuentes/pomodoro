@@ -3,17 +3,7 @@ import tw from 'tailwind.macro';
 import styled from 'styled-components';
 import WelcomeContainer from './WelcomeContainer';
 
-<<<<<<< HEAD
-const Button = ({ className }) => <button className={className}>TEST STYLE</button>;
-||||||| merged common ancestors
-const Button = ({ className }) => {
-  return <button className={className}>TEST STYLE</button>;
-};
-=======
-const Button = ({ className }) => {
-  return <button className={className}>DAVEY STYLE</button>;
-};
->>>>>>> keithcagney/database
+const Button = ({ className }) => <button className={className}>DAVEY STYLE</button>;
 
 const TestButton = styled(Button)`
   ${tw`border border-indigo-500 text-indigo-500 block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-indigo-500 hover:text-white`}

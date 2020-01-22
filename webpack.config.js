@@ -9,7 +9,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
 
 module.exports = {
   entry: {
-    app: './src/index.js'
+    app: './src/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -27,6 +27,13 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'build'),
+    port: 9999,
+    proxy: {
+      '*': 'http://localhost:3000',
+    },
   },
   plugins: [
     htmlPlugin,

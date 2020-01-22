@@ -21,6 +21,10 @@ class WelcomeContainer extends Component {
     this.timerID = setInterval(() => {
       this.tick();
     }, 1000);
+
+    fetch('/quote')
+      .then((data) => data.json())
+      .then((data) => console.log('quote: ', data));
   }
 
   // tear down the timer component

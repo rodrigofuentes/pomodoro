@@ -21,12 +21,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // serve up static stylings and index.js script
-app.use(express.static(path.resolve(__dirname, '../src/index.js')));
-app.use(express.static(path.resolve(__dirname, '../src/styles')));
+app.use(express.static(path.resolve(__dirname, 'build')));
+// app.use(express.static(path.resolve(__dirname, '../build/styles')));
 
 // send index.html on root access
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../src/index.html'));
+  res.sendFile(path.resolve(__dirname, '../build/index.html'));
 });
 
 // handle login requests
@@ -53,22 +53,22 @@ app.use('/habit', habitRouter);
 // defer to Note Router
 app.use('/note', noteRouter);
 
-app.use('/quote', (req, res) => {
-  const { quotes } = req.body;
-  const queryString = 'INSERT INTO quotes (text, author) VALUES ($1, $2) RETURNING *';
-  res.locals.quotes = [];
-  quotes.forEach((el) => {
-    const values = [el.text, el.author];
-    db.query(queryString, values, (err, data) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log('Successfully added habit to DB: ', data.rows);
-      res.locals.quotes.push(data.rows[0]);
-    });
-  });
-  res.status(200).send(res.locals.quotes);
-});
+// app.use('/quote', (req, res) => {
+//   const { quotes } = req.body;
+//   const queryString = 'INSERT INTO quotes (text, author) VALUES ($1, $2) RETURNING *';
+//   res.locals.quotes = [];
+//   quotes.forEach((el) => {
+//     const values = [el.text, el.author];
+//     db.query(queryString, values, (err, data) => {
+//       if (err) {
+//         console.log(err);
+//       }
+//       console.log('Successfully added habit to DB: ', data.rows);
+//       res.locals.quotes.push(data.rows[0]);
+//     });
+//   });
+//   res.status(200).json(res.locals.quotes);
+// });
 
 // listen on 3000
 app.listen(3000, () => console.log('Server listening on 3000'));
