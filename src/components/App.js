@@ -3,7 +3,7 @@ import tw from 'tailwind.macro';
 import styled from 'styled-components';
 
 const Button = ({ className }) => {
-  return <button className={className}>TEST STYLE</button>;
+  return <button className={className}>DAVEY STYLE</button>;
 };
 
 const TestButton = styled(Button)`
