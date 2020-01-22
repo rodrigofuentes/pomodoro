@@ -3,7 +3,7 @@ const db = require('../../db/connect');
 const taskController = {};
 
 taskController.getTasks = (req, res, next) => {
-  const queryString = 'SELECT * FROM tasks';
+  const queryString = 'SELECT * FROM tasks ORDER BY priority';
   db.query(queryString, (err, data) => {
     if (err) {
       return next({
