@@ -53,5 +53,22 @@ app.use('/habit', habitRouter);
 // defer to Note Router
 app.use('/note', noteRouter);
 
+app.use('/quote', (req, res) => {
+  const { quotes } = req.body;
+  const queryString = 'INSERT INTO quotes (text, author) VALUES ($1, $2) RETURNING *';
+  res.locals.quotes = [];
+  quotes.forEach((el) => {
+    const values = [el.text, el.author];
+    db.query(queryString, values, (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log('Successfully added habit to DB: ', data.rows);
+      res.locals.quotes.push(data.rows[0]);
+    });
+  });
+  res.status(200).send(res.locals.quotes);
+});
+
 // listen on 3000
 app.listen(3000, () => console.log('Server listening on 3000'));
