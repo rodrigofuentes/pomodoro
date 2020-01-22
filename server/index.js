@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -16,41 +17,40 @@ const taskController = require('./controllers/taskController.js');
 const habitController = require('./controllers/habitController.js');
 const noteController = require('./controllers/noteController.js');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
 app.use(cookieParser());
 
-//serve up static stylings and index.js script
+// serve up static stylings and index.js script
 app.use(express.static(path.resolve(__dirname, '../src/index.js')));
 app.use(express.static(path.resolve(__dirname, '../src/styles')));
 
 // send index.html on root access
 app.get('/', (req, res) => {
-  res.sendFile(index.html);
+  res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
-//handle login requests
+// handle login requests
 app.post('/login', (req, res) => {
   res.status(200).json();
 });
 
-//handle signup requests
+// handle signup requests
 app.post('/signup', (req, res) => {
   res.status(200).json();
 });
 
-//handle OAuth requests
+// handle OAuth requests
 app.post('/oauth', (req, res) => {
   res.status(200).json();
 });
 
-//defer to Task Router
+// defer to Task Router
 app.use('/task', taskRouter);
 
-//defer to Habit Router
+// defer to Habit Router
 app.use('/habit', habitRouter);
 
-//defer to Note Router
+// defer to Note Router
 app.use('/note', noteRouter);
 
 // listen on 3000
