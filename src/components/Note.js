@@ -19,7 +19,7 @@ const Note = (props) => {
           cols="50"
         />
       </label>
-      <input type="submit" value="Save Note" />
+      <input id="saveNote" type="submit" value="Save Note" />
     </form>
   );
 };

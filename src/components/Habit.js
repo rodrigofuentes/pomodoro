@@ -87,8 +87,8 @@ class Habit extends Component {
     return (
       <div className="habitTracker">
         <h3 className="habitsHeader">Habit Tracker</h3>
-        <input type="text" placeholder="Enter a habit to track..." name="habit" value={habit} onChange={this.handleInput} />
-        <input type="submit" value="Add Habit" onClick={this.handleSubmit} />
+        <input id="habit" type="text" placeholder="Enter a habit to track..." name="habit" value={habit} onChange={this.handleInput} />
+        <input id="habitSubmit" type="submit" value="Add" onClick={this.handleSubmit} />
         {/* <HabitItem habitItem={habit} /> */}
         {habits}
       </div>

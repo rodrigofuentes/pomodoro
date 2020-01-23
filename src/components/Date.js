@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 
 const DateCompo = ({ today, time }) => (
-  <div className="date">
+  <div id="date">
     <p>
       {today}
       <span>

@@ -4,15 +4,15 @@ import React from 'react';
 const HabitItem = ({
   habitText, habitDate, id, deleteHabit,
 }) => (
-  <div>
+  <div className="habit">
     <p>
       {habitText}
       <span>
         {' '}
-        {habitDate}
+        {/* {habitDate} */}
       </span>
     </p>
-    <input type="submit" value="Delete" id={id} onClick={deleteHabit} />
+    <input type="submit" value="x" className="deleteHabit" id={id} onClick={deleteHabit} />
   </div>
 );
 

@@ -1,8 +1,10 @@
 @import 'normalize.scss';
 
+
 body {
-	background-color: #333;
-	color: #eee;
+	background-color: #FFE9C7;
+    color: #246AFF;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 a {
@@ -15,19 +17,44 @@ a:visited {
 
 
 .welcomeContainer {
-    padding: 20px;
     width: 0 auto;
+    text-align: center;
+}
+#welcomeBar {
+    background-color: #CC8E58;
+    padding: 20px;
+}
+
+#topBar {
+    display: flex;
 }
 
 .middleContainer {
     display: grid;
     grid-template-columns: 50% 40%;
+    margin-top: 3%;
 }
 
 .dateQuote {
     text-align: center;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+}
+
+#quote {
+    margin-left: 3%;
+}
+
+#date {
+    margin-right: 3%;
+}
+
+textarea{
+    background-color: #CC8E58;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #FFF2E3;
+    border: 1px solid rgba(204, 142, 88, .5);
 }
 
 .habitTracker {
@@ -36,12 +63,69 @@ a:visited {
     width: 100%;
     margin: 10px;
     padding: 20px;
+    box-shadow: 1px;
 }
 
 .habitsHeader {
     text-align: center;
     font-size: 1.5em;
+    margin: 2%;
+}
+
+.habit{
+    display: flex;
+    margin-left: 10%;
+}
+
+#habit{
+    background-color: #CC8E58;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #FFF2E3;
+    border: 1px solid rgba(204, 142, 88, .5);
+}
+
+#habitSubmit{
+    margin-left: 1%;
+    background-color: rgba(204, 142, 88, 0.486);
+    border-color: rgba(204, 142, 88, 0.486);
+    color: #246AFF;
+    border-radius: 4px;
+}
+
+#habitSubmit:hover{
+    background-color: rgba(182, 93, 16, 0.651);
+}
+
+.deleteHabit:hover{
+    margin-bottom: 4px;
+    color: rgb(204, 96, 1);
+    opacity: 100%
+}
+
+.deleteHabit{
+    background-color: transparent;
+    border: none;
+    margin: 0px;
+    font-size: 1.25em;
+    opacity: 30%;
+    padding: none;
 }
 
 .noteForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#saveNote{
+    background-color: rgba(204, 142, 88, 0.486);
+    border-color: rgba(204, 142, 88, 0.486);
+    color: #246AFF;
+    border-radius: 4px;
+}
+
+#saveNote:hover{
+    color: #246AFF;
+    background-color: rgba(182, 93, 16, 0.651);
 }

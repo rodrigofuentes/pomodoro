@@ -9,13 +9,13 @@ const DateQuoteContainer = ({
   quoteText, quoteAuthor, today, time,
 }) => (
   <div className="dateQuote">
+    <Quote
+      quoteText={`"${quoteText}"`}
+      quoteAuthor={quoteAuthor}
+    />
     <DateCompo
       today={today}
       time={time}
-    />
-    <Quote
-      quoteText={quoteText}
-      quoteAuthor={quoteAuthor}
     />
   </div>
 );

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const Quote = (props) => {
   const { quoteText, quoteAuthor } = props;
   return (
-    <div className="quote">
+    <div id="quote">
       <p>
         {quoteText}
         <span>

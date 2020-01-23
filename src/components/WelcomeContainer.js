@@ -93,7 +93,7 @@ class WelcomeContainer extends Component {
     // console.log('noteValue: ', noteValue);
     return (
       <div className="welcomeContainer">
-        <h1>Welcome User,</h1>
+        <h1 id="welcomeBar">Welcome,</h1>
         <DateQuoteContainer
           quoteText={quoteText}
           quoteAuthor={quoteAuthor}
