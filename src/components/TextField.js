@@ -1,14 +1,20 @@
+import React from 'react';
+import { Context } from './Context'
 
-
-export default TextField = ({props}) => {
+export const TextField = () => {
   return (
-    <div>
-      <input 
-        type="text" 
-        name="task" 
-        placeholder="Enter Next Task"
-        />{task}<br/>
-    </div>
+    <Context.Consumer>
+      {({updateTask, submit}) => (
+        <div>
+          <input 
+            type="text" 
+            name="task" 
+            placeholder="Enter Next Task"
+            onBlur={(e) => {updateTask(e.target.value); submit()}}
+            onKeyPress={(e) => { e.key === "Enter" ? context.updateTask(e.target.value) : ''}}   
+            /><br/>
+        </div>
+      )}
+    </Context.Consumer>
   )
 }
-// onKeyPress={(e) => { e.key === "Enter" ? props.submit() : '' }}   

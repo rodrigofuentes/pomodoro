@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"private": true,
 	"scripts": {
+		"davey": "webpack-dev-server --mode development --output-public-path=/build/ --open",
 		"dev": "webpack-dev-server --mode development --open",
 		"test": "webpack-dev-server --mode development --https --host 192.168.1.2 --open",
 		"build": "webpack --mode production",
