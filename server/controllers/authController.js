@@ -51,12 +51,23 @@ authController.setCookie = (req, res, next) => {
   // upon registration or login, set a cookie with the appropriate user ID and redirect
   const { email } = req.body;
   const token = jwt.sign(email, process.env.ACCESS_TOKEN_SECRET_HASH_PASS_FBI_CIA_SPECOPS_ENCRYPTION);
-  res.json(token);
+  res.cookie('token', token, { httpOnly: true });
+  res.json('logged in and cookie set');
 };
 
-authController.verifyUser = (req, res, next) => {
+authController.verifyCookie = (req, res, next) => {
   // this middleware checks to see if the user has a valid cookie or OAuth access token to access their page
   // this redirects, initiating a fetch with a payload of the user ID
+  const { token } = req.cookies;
+  if (token === undefined) res.status(401).send('not authorized');
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_HASH_PASS_FBI_CIA_SPECOPS_ENCRYPTION, (err, user) => {
+    if (err) {
+      return next({
+        log: 'Error authorizing JWT.  See authController.verifyCookie',
+        message: 'Error authorizing JWT.  See authController.verifyCookie',
+      });
+    }
+  });
 };
 
 module.exports = authController;

@@ -26,7 +26,7 @@ app.use(express.static(path.resolve(__dirname, 'build')));
 // app.use(express.static(path.resolve(__dirname, '../build/styles')));
 
 // send index.html on root access
-app.get('/', (req, res) => {
+app.get('/', authController.verifyCookie, (req, res) => {
   res.sendFile(path.resolve(__dirname, '../build/index.html'));
 });
 
