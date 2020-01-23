@@ -11,7 +11,7 @@
 		"build:clean": "rimraf ./build/*",
 		"server:start": "nodemon ./server/index.js",
 		"both": "npm run dev & npm run server:start",
-		"test2":"mocha __tests__/server.test.js"
+		"test2": "mocha __tests__/server.test.js"
 	},
 	"keywords": [
 		"react",
@@ -51,6 +51,7 @@
 		"pg": "^7.17.1",
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0",
+		"react-router-dom": "^5.1.2",
 		"styled-components": "^5.0.0"
 	}
 }

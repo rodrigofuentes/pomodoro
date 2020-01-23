@@ -4,10 +4,17 @@ import styled from 'styled-components';
 
 
 const Quote = (props) => {
-  const { dailyQuote } = props;
+  const { quoteText, quoteAuthor } = props;
   return (
     <div className="quote">
-      {dailyQuote}
+      <p>
+        {quoteText}
+        <span>
+          {' '}
+            -
+          {quoteAuthor}
+        </span>
+      </p>
     </div>
   );
 };

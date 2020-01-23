@@ -12,3 +12,36 @@ a {
 a:visited {
 	color: cyan;
 }
+
+
+.welcomeContainer {
+    padding: 20px;
+    width: 0 auto;
+}
+
+.middleContainer {
+    display: grid;
+    grid-template-columns: 50% 40%;
+}
+
+.dateQuote {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.habitTracker {
+    border: 3px solid white;
+    border-radius: 30px;
+    width: 100%;
+    margin: 10px;
+    padding: 20px;
+}
+
+.habitsHeader {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.noteForm {
+}

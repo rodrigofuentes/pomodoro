@@ -5,14 +5,17 @@ import Quote from './Quote';
 import DateCompo from './Date';
 
 
-const DateQuoteContainer = ({ dailyQuote, today, time }) => (
-  <div>
+const DateQuoteContainer = ({
+  quoteText, quoteAuthor, today, time,
+}) => (
+  <div className="dateQuote">
     <DateCompo
       today={today}
       time={time}
     />
     <Quote
-      dailyQuote={dailyQuote}
+      quoteText={quoteText}
+      quoteAuthor={quoteAuthor}
     />
   </div>
 );

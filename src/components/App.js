@@ -1,41 +1,50 @@
+/* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import tw from 'tailwind.macro';
 import styled from 'styled-components';
+import LoginPage from './LoginPage';
+import SignUpPage from './SignUpPage';
 import WelcomeContainer from './WelcomeContainer';
+import LoginComponent from './LoginComponent';
 
-const Button = ({ className }) => <button className={className}>DAVEY STYLE</button>;
 
-const TestButton = styled(Button)`
-  ${tw`border border-indigo-500 text-indigo-500 block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-indigo-500 hover:text-white`}
-`;
-
-class App2 extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: 'https://github.com/rodrigofuentes/react-webpack',
+      userDetails: {
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+        isLoggedIn: false,
+      },
+
     };
   }
 
   render() {
     return (
-      <div>
-        <TestButton>testings</TestButton>
-        <p id="test">React-ing: check out the repo</p>
-        <a href={this.state.url}>github.com/react-webpack</a>
+      <Router>
+        <div>
+          <LoginPage />
+          <SignUpPage />
+          <WelcomeContainer />
+        </div>
+      </Router>
 
-      </div>
     );
   }
 }
 
-const App = ({ url }) => (
-  <>
-    <TestButton />
-    <p id="test">React-ing: check out the repo</p>
-    <a href={url}>github.com/react-webpack</a>
-    <WelcomeContainer />
-  </>
-);
+
+// const App = () => (
+
+//   <div className="AppContainer">
+//     <WelcomeContainer />
+//   </div>
+
+// );
 
 export default App;
