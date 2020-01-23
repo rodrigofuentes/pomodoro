@@ -140,7 +140,7 @@ sketch
 *.scss.map
 
 ### Webpack dist folder ###
-/dist
+dist/
 
 ##vscode settings config
 .vscode/

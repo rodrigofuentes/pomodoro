@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -19,23 +20,42 @@ const noteController = require('./controllers/noteController.js');
 app.use(express.json());
 app.use(cookieParser());
 
+// Set the cookie
+// has to live above express.static
+app.use('/', (req, res, next) => {
+  let options = {
+    maxAge: 1000 * 60 * 15, // would expire after 15 minutes
+    httpOnly: true // The cookie only accessible by the web server
+  };
+  // TODO: Check for cookie
+  const cookieJar = req.cookies; // is an obj
+  // If no cookie exists set cookie
+  // set name and value based on auth from login.
+  // maybe this should live in /login or /register
+  res.cookie('cookieName', 'cookieValue', options);
+  console.log("Made a cookie inside app.use('/')");
+
+  next();
+});
+
 // serve up static stylings and index.js script
 app.use(express.static(path.resolve(__dirname, 'build')));
-// app.use(express.static(path.resolve(__dirname, '../build/styles')));
 
 // send index.html on root access
 app.get('/', (req, res) => {
+  // This route does nothing with Proxy...
+  // How to fix without breaking route to serve file.
+
   res.sendFile(path.resolve(__dirname, '../build/index.html'));
 });
 
 // handle login requests
-app.post('/login', (req, res) => {
+app.post('/login', authController.loginUser, (req, res) => {
   // check if user exists and password matches and send jwt cookie
   res.status(200).json();
 });
 
-// handle signup requests
-app.post('/signup', (req, res) => {
+app.post('/signup', authController.registerUser, (req, res) => {
   res.status(200).json();
 });
 
