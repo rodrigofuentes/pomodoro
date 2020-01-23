@@ -96,8 +96,27 @@ export class Provider extends Component {
     }
   };
 
-
-
+  componentDidMount() {
+    let currentDate = new Date;
+    currentDate.setUTCHours(5);
+    currentDate.setMilliseconds(0);
+    currentDate.setHours(0);
+    currentDate.setMinutes(0);
+    currentDate.setSeconds(0)
+    fetch('/task/get'
+      , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          date: currentDate
+        })
+      }
+    )
+    .then(response => response.json())
+    .then(data => console.log('DATA::::::: ', data))
+  }
 
   render () {
     return (
