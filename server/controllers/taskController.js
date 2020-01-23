@@ -67,4 +67,22 @@ taskController.deleteTask = (req, res, next) => {
   });
 };
 
+taskController.toggleTask = (req, res, next) => {
+  const { id } = req.body;
+  const queryString = 'UPDATE tasks WHERE id = $1 SET complete = NOT complete RETURNING *';
+  const values = [id];
+  console.log('in toggleTask');
+  db.query(queryString, values, (err, data) => {
+    if (err) {
+      return next({
+        log: 'Error toggling task completion in DB.  See taskController.toggleTask',
+        message: 'Error toggling task completion in DB.  See taskController.toggleTask',
+      });
+    }
+    console.log('Successfully toggled task in DB: ', data.rows);
+    res.locals.toggle = data.rows;
+    return next();
+  });
+};
+
 module.exports = taskController;

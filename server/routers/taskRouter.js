@@ -15,6 +15,11 @@ taskRouter.post('/', taskController.addTask, (req, res) => {
   res.status(200).json(res.locals.posted);
 });
 
+taskRouter.post('/toggleTask', (req, res) => {
+  console.log('taskRouter: inside toggleTask');
+  res.status(200).json('Task successfully toggled.');
+});
+
 // handle updating a Task
 taskRouter.put('/', taskController.updateTask, (req, res) => {
   console.log('taskRouter: Inside UPDATE');
