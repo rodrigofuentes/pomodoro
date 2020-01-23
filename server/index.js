@@ -27,7 +27,8 @@ app.use(express.static(path.resolve(__dirname, 'build')));
 
 // send index.html on root access
 app.get('/', authController.verifyCookie, (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../build/index.html'));
+  // res.sendFile(path.resolve(__dirname, '../build/index.html'));
+  res.send('logged in');
 });
 
 // handle login requests

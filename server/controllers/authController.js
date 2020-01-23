@@ -59,14 +59,30 @@ authController.verifyCookie = (req, res, next) => {
   // this middleware checks to see if the user has a valid cookie or OAuth access token to access their page
   // this redirects, initiating a fetch with a payload of the user ID
   const { token } = req.cookies;
-  if (token === undefined) res.status(401).send('not authorized');
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_HASH_PASS_FBI_CIA_SPECOPS_ENCRYPTION, (err, user) => {
+  if (token === undefined) return res.status(401).send('not authorized');
+  const email = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET_HASH_PASS_FBI_CIA_SPECOPS_ENCRYPTION, (err, user) => {
+    if (err) {
+      return next({
+        log: 'Error decrypting JWT.  See authController.verifyCookie',
+        message: 'Error decrypting JWT.  See authController.verifyCookie',
+      });
+    }
+    // get email from verify and check email in DB and console log user
+    return user;
+  });
+  console.log(email);
+  const queryString = 'SELECT * FROM users WHERE email = $1';
+  const values = [email];
+  db.query(queryString, values, (err, data) => {
     if (err) {
       return next({
         log: 'Error authorizing JWT.  See authController.verifyCookie',
         message: 'Error authorizing JWT.  See authController.verifyCookie',
       });
+    } if (data.rows.length === 0) {
+      res.status(401).json('Invalid credentials.');
     }
+    next();
   });
 };
 
