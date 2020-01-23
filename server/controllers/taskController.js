@@ -3,8 +3,11 @@ const db = require('../../db/connect');
 const taskController = {};
 
 taskController.getTasks = (req, res, next) => {
-  const queryString = 'SELECT * FROM tasks ORDER BY priority';
-  db.query(queryString, (err, data) => {
+  const {day} = req.cookies;
+  const values = [day];
+  const queryString = 'SELECT * FROM tasks WHERE date=$1 ORDER BY priority';
+  
+  db.query(queryString, values, (err, data) => {
     if (err) {
       return next({
         log: 'Error getting tasks to DB.  See taskController.getTasks',
