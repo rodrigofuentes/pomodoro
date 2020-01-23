@@ -5,8 +5,14 @@ import styled from 'styled-components';
 
 const DateCompo = ({ today, time }) => (
   <div className="date">
-    <p>{today}</p>
-    <p>{time}</p>
+    <p>
+      {today}
+      <span>
+        {' '}
+        {time}
+      </span>
+
+    </p>
 
   </div>
 );

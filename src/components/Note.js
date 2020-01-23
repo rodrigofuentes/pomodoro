@@ -6,14 +6,14 @@ import styled from 'styled-components';
 const Note = (props) => {
   const { value, handleChange, handleSubmit } = props;
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="noteForm">
       <label htmlFor="Note">
         <p>Note for the Day</p>
         <textarea
           name="Note"
           value={value}
           onChange={handleChange}
-          placeholder="Enter Note... Hit Enter to Save!"
+          placeholder="Enter Note"
           type="text"
           row="10"
           cols="50"

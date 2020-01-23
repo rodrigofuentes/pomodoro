@@ -2,13 +2,15 @@
 import React, { Component } from 'react';
 import DateQuoteContainer from './DateQuoteContainer';
 import Note from './Note';
+import Habit from './Habit';
 
 
 class WelcomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quote: '',
+      quoteText: '',
+      quoteAuthor: '',
       today: new Date(),
       noteValue: '',
     };
@@ -24,12 +26,27 @@ class WelcomeContainer extends Component {
 
     fetch('/quote')
       .then((data) => data.json())
-      .then((data) => console.log('quote: ', data));
+      .then((data) => {
+        const { text, author } = data[0];
+        this.setState({
+          quoteText: text,
+          quoteAuthor: author,
+        });
+      });
+
+    fetch('/note')
+      .then((data) => data.json())
+      .then((data) => {
+        const returnedNote = data[data.length - 1];
+        this.setState({
+          noteValue: returnedNote.notes,
+        });
+      });
   }
 
   // tear down the timer component
   componentWillUnmount() {
-    clearInterval();
+    clearInterval(this.timerID);
   }
 
   // updates the state with new date whenever invoked
@@ -40,32 +57,57 @@ class WelcomeContainer extends Component {
   }
 
   handleChange(event) {
+    const { value } = event.target;
     this.setState({
-      noteValue: event.target.value,
+      noteValue: value,
     });
   }
 
   handleSubmit(event) {
-    alert(`A note was submitted: ${this.state.note}`);
     event.preventDefault();
+    const { noteValue } = this.state;
+    fetch('/note', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        note: noteValue,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const returnedNote = data[0];
+        this.setState({
+          noteValue: returnedNote.notes,
+        });
+      })
+      .catch((error) => console.log(error));
   }
 
 
   render() {
-    const { quote, today, noteValue } = this.state;
+    const {
+      quoteText, quoteAuthor, today, noteValue,
+    } = this.state;
+    // console.log('noteValue: ', noteValue);
     return (
-      <div>
+      <div className="welcomeContainer">
         <h1>Welcome User,</h1>
         <DateQuoteContainer
-          dailyQuote={quote}
+          quoteText={quoteText}
+          quoteAuthor={quoteAuthor}
           today={today.toDateString()}
           time={today.toLocaleTimeString()}
         />
-        <Note
-          value={noteValue}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <div className="middleContainer">
+          <Note
+            value={noteValue}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
+          <Habit />
+        </div>
       </div>
     );
   }
