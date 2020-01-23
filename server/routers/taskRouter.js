@@ -4,7 +4,7 @@ const taskRouter = express.Router();
 const taskController = require('../controllers/taskController');
 
 // handle Task retrieval
-taskRouter.get('/', taskController.getTasks, (req, res) => {
+taskRouter.post('/get', taskController.getTasks, (req, res) => {
   console.log('taskRouter: Inside GET');
   res.status(200).json(res.locals.tasks);
 });
