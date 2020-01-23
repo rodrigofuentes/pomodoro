@@ -1,20 +1,26 @@
 import React from 'react';
-import { Context, Consumer } from './Context'
+import { Consumer } from './Context'
 
-export const TextField = () => {
+export const TextField = ({ priority }) => {
   return (
     <Consumer>
-      {({store}) => (
+      {({store, state}) => (
         <div>
           <input 
+            id="none"
             type="text" 
-            name="task" 
+            className="task" 
+            name={priority}
+            priority={priority}
+            status='active'
             placeholder="Enter Next Task"
-            onBlur={(e) => {store.updateTask(e.target.value)}}
-            onKeyPress={(e) => { e.key === "Enter" ? store.updateTask(e.target.value) : ''}}   
+            onBlur={(e) => {store.updateTask(e.target); console.log(e.target.attributes, e.target.attributes.priority.value, 'id :::::' , e.target.id)}}
+            onKeyPress={(e) => { e.key === "Enter" ? store.updateTask(e.target) : ''}}   
             /><br/>
+          <button className="delete" id="none" name={priority} priority={priority} onClick={(e) => {store.updateTask(e.target); console.log(e.target.attributes.class.value)}}>Delete Task</button>
         </div>
       )}
     </Consumer>
   )
 }
+// store.updateTask(e.target) 

@@ -1,18 +1,17 @@
 import React from 'react';
 import { TextField } from './TextField'
 import { Checkbox } from './Checkbox'
-import { Context, Consumer } from './Context'
+import { Consumer } from './Context'
+import { Pomodoros } from './Pom'
 
-export const TaskContainer = () => {
+export const TaskContainer = ({ priority }) => {
   return (
-    <Consumer>
-      {({state}) => (
-        <div>
-          Number {state.priority}
-          <Checkbox></Checkbox>
-          <TextField></TextField>
-        </div>
-      )}
-    </Consumer>
+    <div>
+      Task {priority}
+      <Checkbox />
+      <TextField priority={priority} />
+      <Pomodoros />
+
+    </div>
   );
 }

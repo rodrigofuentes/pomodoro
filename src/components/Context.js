@@ -1,17 +1,17 @@
 import React, { Component, useState, useContext } from 'react';
-import { TaskContainer } from './TaskContainer.js'
 
 export const Context = React.createContext();
 export const Consumer = Context.Consumer;
+
 export class Provider extends Component {
   constructor(props) {
     super(props);
     this.state = {
       numTasks: 5,
       task: '',
-      priority: 2,
-      completed: true,
-      id: null,
+      priority: 3,
+      completed: false,
+      id: 'none',
       loading: false
     }
   }
@@ -26,52 +26,71 @@ export class Provider extends Component {
     });
   };
 
-  updateTask(text) {
-    if (text != this.state.task) {
-      this.setState({
-        loading: true,
-        task: text
-      });
-      if (this.state.id === null) {
-        fetch('/task', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            task: text,
-            priority: this.state.priority
+  updateTask(target) {
+    if (target.attributes.class.value === 'task') {
+      if (target.value != '') {
+        this.setState({
+          loading: true,
+          task: target.value
+        });
+        if (target.id === 'none' || target.attributes.status.value === 'deleted') {
+          console.log('taget.value: ', target.value, eval(target.attributes.priority.value))
+          fetch('/task', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              task: target.value,
+              priority: target.attributes.priority.value
+            })
           })
-        })
-        .then(response => response.json())
-        .then(parsed => {
-          this.setState({
-            loading: false,
-            id: parsed[0].id
-          })
-          console.log(parsed, this.state.id)})
-      } else {
-        if (text !== '') {
+          .then(response => response.json())
+          .then(parsed => {
+            console.log(parsed, this.state.id)
+            this.setState({
+              loading: false,
+            })
+            target.id=parsed[0].id
+            const deleteButton = document.getElementsByClassName("delete");
+            for (let element of deleteButton)
+              if (element.name === target.attributes.priority.value) {
+                element.setAttribute('id', target.id)
+                console.log(element)
+              }
+            })
+        } else {
           fetch('/task', {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              task: text,
-              id: this.state.id
+              task: target.value,
+              id: target.id
             })
           })
-        } else {
-          fetch('/task', {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              id: this.state.id
-            })
+        }
+      }
+    } else if (target.attributes.class.value === 'delete') {
+      if (target.id !== 'none') {
+        fetch('/task', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: target.id
           })
+        })
+        const textFields = document.getElementsByClassName("task");
+        console.log(textFields)
+        for (let element of textFields) {
+          if (element.name === target.name) {
+            element.value = '';
+            element.setAttribute('status', 'deleted');
+            console.log('DELETD ELEMTN ::', element)
+          }
         }
       }
     }

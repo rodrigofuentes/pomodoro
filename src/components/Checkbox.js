@@ -11,7 +11,7 @@ export const Checkbox = () => {
             type="checkbox" 
             name="checkbox"
             onChange={() => {store.toggleCompleted()}}
-            defaultChecked
+            // defaultChecked
             /><br/>
         </div>
       )} 

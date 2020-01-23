@@ -3,41 +3,6 @@ import { TaskContainer } from './TaskContainer.js'
 
 
 export class TaskList extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     numToDo: 5,
-  //     taskInfo: {  
-  //         task: '',
-  //         priority: 2,
-  //         completed: false
-  //       }
-  //   };
-  // };
-
-
-  // submit() {
-  //   console.log("submit");
-  //   console.log(this.state.taskInfo.completed);   
-  // }
-
-  // toggleCompleted() {
-  //   this.setState({
-  //     taskInfo: {completed: !this.state.taskInfo.completed}
-  //   });
-  //   console.log('toggleCompleted(): ', this.state.taskInfo.completed);   
-  // }
-
-  // updateTask(text) {
-  //   if (text != this.state.taskInfo.task) {
-  //     this.setState({
-  //       taskInfo: {task: text}
-  //     });
-  //   }
-  //   console.log('updateTask() complete-status: ', this.state.taskInfo.completed);   
-  // }
-
-
   
   // ToDoArray = [];
   // populateState = (num = this.state.numToDo, array = this.state.taskInfo) => {
@@ -89,30 +54,24 @@ export class TaskList extends Component {
 
 
   render() {
-    // populateState()    
     return (
       <div>
         <h3>Most important Task of the Day</h3>
-        <TaskContainer></TaskContainer>
+        <TaskContainer priority= {1} />
+        <h3>Other Important Tasks</h3>
+        <TaskContainer priority= {2} />
+        <br/>
+        <TaskContainer priority= {3} />
         <h3>Additional Tasks</h3>
+        <TaskContainer priority= {4} />
+        <br/>
+        <TaskContainer priority= {5} />
+        <br/>
+        <TaskContainer priority= {6} />
+        <br/>
         <button onClick={() => console.log('clicked Add')}>Add New To Do Item</button>
         <button onClick={() => console.log('clicked Remove')}>Remove Last To Do Item </button>
       </div>
     );
   }
 }
-
-{/* {ToDoArray[0]} */}
-{/* {ToDoArray.slice(1)} */}
-{/* <button onClick={createNewToDo()}>Add New To Do Item</button>
-<button onClick={removeLastToDO()}>Remove Last To Do Item </button> */}
-{/* <TaskContainer priority={this.state.taskInfo[0].priority} completed={this.state.taskInfo[0].completed}></TaskContainer>; */}
-
-{/* <TaskContainer 
-priority={this.state.taskInfo.priority} 
-submit={() => this.submit()} 
-toggle={() => this.toggleCompleted()} 
-comp={this.state.taskInfo.completed}
-updateTask={(t) => this.updateTask(t)}
-task={this.state.taskInfo.task}
-></TaskContainer> */}

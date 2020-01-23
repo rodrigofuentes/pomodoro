@@ -5,10 +5,10 @@ import WelcomeContainer from './WelcomeContainer';
 
 const App = ({ url }) => (
   <>
-  <Provider>
-    <WelcomeContainer />
-    <TaskList />
-  </Provider>
+    <Provider>
+      <WelcomeContainer />
+      <TaskList />
+    </Provider>
   </>
 );
 
