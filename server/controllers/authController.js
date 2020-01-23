@@ -18,7 +18,7 @@ authController.registerUser = (req, res, next) => {
   var hashed_password = bcrypt.hashSync(password, 10);
   // inputs -> stored in db
   const values = [email, first_name, last_name, hashed_password];
-  const queryString = `INSERT INTO Users (email, first_name, last_name, hashed_password) VALUES ($1, $2) RETURNING *`;
+  const queryString = `INSERT INTO Users (email, first_name, last_name, password) VALUES ($1, $2, $3, $4) RETURNING *`;
 
   db.query(queryString, values, (err, data) => {
     if (err) {
@@ -27,7 +27,7 @@ authController.registerUser = (req, res, next) => {
         message: 'Some message'
       });
     }
-    res.locals.seamen = data.rows;
+    res.locals.watervoyager = data.rows;
     return next();
   });
   // After user is logged in send jwt signed cookie in /login
