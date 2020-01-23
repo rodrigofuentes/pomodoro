@@ -28,8 +28,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <LoginPage />
-          <SignUpPage />
+          {/* <LoginPage /> */}
+          {/* <SignUpPage /> */}
           <WelcomeContainer />
         </div>
       </Router>

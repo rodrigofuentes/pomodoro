@@ -8,7 +8,7 @@ const Note = (props) => {
   return (
     <form onSubmit={handleSubmit} className="noteForm">
       <label htmlFor="Note">
-        <p>Note for the Day</p>
+        <p>Notes</p>
         <textarea
           name="Note"
           value={value}

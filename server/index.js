@@ -37,7 +37,7 @@ app.post('/login', authController.loginUser, authController.setCookie, (req, res
 
 // handle signup requests
 app.post('/register', authController.registerUser, authController.setCookie, (req, res) => {
-  res.status(200).json(res.locals.toggle);
+  res.status(200).json(res.locals.userData);
 });
 
 // handle OAuth requests
