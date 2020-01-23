@@ -16,10 +16,9 @@
 	"keywords": [
 		"react",
 		"webpack",
-		"sass",
 		"styled-components",
 		"tailwind",
-		"boilerplate"
+		"pomodoro"
 	],
 	"author": "",
 	"license": "ISC",
