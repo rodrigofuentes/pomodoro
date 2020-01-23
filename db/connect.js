@@ -17,5 +17,4 @@ module.exports = {
     console.log(`Executed query ${text}`);
     return pool.query(text, params, callback);
   },
-}
-;
+};
