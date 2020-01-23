@@ -8,7 +8,7 @@ noteController.getNotes = (req, res, next) => {
     if (err) {
       return next({
         log: 'Error getting notes from DB.  See noteController.getNotes',
-        message: 'Error getting notes from DB.  See noteController.getNotes',
+        message: 'Error getting notes from DB.  See noteController.getNotes'
       });
     }
     console.log(`Successfully retrieved ${data.rows.length} notes from DB`);
@@ -26,7 +26,7 @@ noteController.addNote = (req, res, next) => {
       console.log(err);
       return next({
         log: 'Error adding note from DB.  See noteController.addNote',
-        message: 'Error adding note from DB.  See noteController.addNote',
+        message: 'Error adding note from DB.  See noteController.addNote'
       });
     }
     console.log('Successfully added note to the DB: ', data.rows);
@@ -43,7 +43,7 @@ noteController.updateNote = (req, res, next) => {
     if (err) {
       return next({
         log: 'Error updating note in DB.  See noteController.updateNote',
-        message: 'Error updating note in DB.  See noteController.updateNote',
+        message: 'Error updating note in DB.  See noteController.updateNote'
       });
     }
     console.log('Successfully updated note in the DB: ', data.rows);
@@ -60,7 +60,7 @@ noteController.deleteNote = (req, res, next) => {
     if (err) {
       return next({
         log: 'Error deleting note in DB.  See noteController.deleteNote',
-        message: 'Error deleting note in DB.  See noteController.deleteNote',
+        message: 'Error deleting note in DB.  See noteController.deleteNote'
       });
     }
     console.log('Successfully deleted note in the DB: ', data.rows);

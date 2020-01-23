@@ -10,7 +10,7 @@ quoteController.getQuote = (req, res, next) => {
     if (err) {
       return next({
         log: 'Error getting Quote to DB.  See taskController.getQuote',
-        message: 'Error getting Quote to DB.  See taskController.getQuote',
+        message: 'Error getting Quote to DB.  See taskController.getQuote'
       });
     }
     console.log('Successfully retrieved quoet from DB: ', data.rows);
