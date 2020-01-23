@@ -3,10 +3,11 @@ const db = require('../../db/connect');
 const taskController = {};
 
 taskController.getTasks = (req, res, next) => {
-  const {date} = req.body
-  console.log(':::::DATE:::::', date)
-  const queryString = `SELECT * FROM tasks WHERE date = '${date}' ORDER BY priority`;
-  db.query(queryString, (err, data) => {
+  const {day} = req.cookies;
+  const values = [day];
+  const queryString = 'SELECT * FROM tasks WHERE date=$1 ORDER BY priority';
+  
+  db.query(queryString, values, (err, data) => {
     if (err) {
       return next({
         log: 'Error getting tasks to DB.  See taskController.getTasks',
@@ -65,6 +66,24 @@ taskController.deleteTask = (req, res, next) => {
     }
     console.log('Successfully deleted task from DB: ', data.rows);
     res.locals.deleted = data.rows;
+    return next();
+  });
+};
+
+taskController.toggleTask = (req, res, next) => {
+  const { id } = req.body;
+  const queryString = 'UPDATE tasks WHERE id = $1 SET complete = NOT complete RETURNING *';
+  const values = [id];
+  console.log('in toggleTask');
+  db.query(queryString, values, (err, data) => {
+    if (err) {
+      return next({
+        log: 'Error toggling task completion in DB.  See taskController.toggleTask',
+        message: 'Error toggling task completion in DB.  See taskController.toggleTask',
+      });
+    }
+    console.log('Successfully toggled task in DB: ', data.rows);
+    res.locals.toggle = data.rows;
     return next();
   });
 };

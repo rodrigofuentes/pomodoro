@@ -26,18 +26,19 @@ app.use(express.static(path.resolve(__dirname, 'build')));
 // app.use(express.static(path.resolve(__dirname, '../build/styles')));
 
 // send index.html on root access
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../build/index.html'));
+app.get('/', authController.verifyCookie, (req, res) => {
+  // res.sendFile(path.resolve(__dirname, '../build/index.html'));
+  res.send('logged in');
 });
 
 // handle login requests
-app.post('/login', (req, res) => {
-  res.status(200).json();
+app.post('/login', authController.loginUser, authController.setCookie, (req, res) => {
+  res.status(200).json(res.locals.userData);
 });
 
 // handle signup requests
-app.post('/signup', (req, res) => {
-  res.status(200).json();
+app.post('/register', authController.registerUser, authController.setCookie, (req, res) => {
+  res.status(200).json(res.locals.toggle);
 });
 
 // handle OAuth requests
