@@ -9,7 +9,6 @@ authController.loginUser = (req, res, next) => {
   // if user has hit the login button and EXISTS, log in
   // access stored hash password, b-decrypt, compare
   const { email, password } = req.body;
-  console.log('password: ', password);
   const queryString = 'SELECT * FROM users WHERE email = $1';
   const values = [email];
   db.query(queryString, values, (err, data) => {
@@ -23,9 +22,11 @@ authController.loginUser = (req, res, next) => {
       res.status(401).json('User not found.');
     }
     const userPassword = data.rows[0].password;
-    console.log('userpassword: ', userPassword);
-    if (bcrypt.compareSync(password, userPassword)) return next();
-    res.status(401).json('Auth failed.');
+    if (bcrypt.compareSync(password, userPassword)) {
+      res.locals.userData = { isLoggedIn: true, email, firstName: data.rows[0].first_name };
+      return next();
+    }
+    res.status(401).json({ isLoggedIn: false });
   });
 };
 
@@ -43,6 +44,7 @@ authController.registerUser = (req, res, next) => {
         message: 'Error registering user in DB.  See authController.registerUser',
       });
     }
+    res.locals.userData = { isLoggedIn: true, email, firstName: first_name };
     return next();
   });
 };
@@ -52,7 +54,7 @@ authController.setCookie = (req, res, next) => {
   const { email } = req.body;
   const token = jwt.sign(email, process.env.ACCESS_TOKEN_SECRET_HASH_PASS_FBI_CIA_SPECOPS_ENCRYPTION);
   res.cookie('token', token, { httpOnly: true });
-  res.json('logged in and cookie set');
+  next();
 };
 
 authController.verifyCookie = (req, res, next) => {

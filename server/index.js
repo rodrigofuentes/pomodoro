@@ -33,12 +33,12 @@ app.get('/', authController.verifyCookie, (req, res) => {
 
 // handle login requests
 app.post('/login', authController.loginUser, authController.setCookie, (req, res) => {
-  res.status(200).json('Auth succeeded');
+  res.status(200).json(res.locals.userData);
 });
 
 // handle signup requests
 app.post('/register', authController.registerUser, authController.setCookie, (req, res) => {
-  res.status(200).json();
+  res.status(200).json(res.locals.toggle);
 });
 
 // handle OAuth requests
