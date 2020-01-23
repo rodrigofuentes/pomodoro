@@ -3,18 +3,19 @@ import tw from 'tailwind.macro';
 import styled from 'styled-components';
 import { TaskList } from './TaskList.js'
 import { Provider } from './Context'
+import WelcomeContainer from './WelcomeContainer';
 
-class App extends Component {
-  
-  render() {
-    return (
-      <Provider>
-        <div>
-          <TaskList></TaskList>
-        </div>
-      </Provider>
-    );
-  }
-}
+const App = ({ url }) => (
+  <>
+  <Provider>
+    <TestButton />
+    <p id="test">React-ing: check out the repo</p>
+    <a href={url}>github.com/react-webpack</a>
+    <WelcomeContainer />
+    <TaskList />
+
+  </Provider>
+  </>
+);
 
 export default App;

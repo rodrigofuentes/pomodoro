@@ -141,3 +141,6 @@ sketch
 
 ### Webpack dist folder ###
 /dist
+
+##vscode settings config
+.vscode/
