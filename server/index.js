@@ -1,8 +1,6 @@
 const express = require('express');
-
 const app = express();
 const path = require('path');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 /* ROUTERS AND CONTROLLER MIDDLEWARE */
