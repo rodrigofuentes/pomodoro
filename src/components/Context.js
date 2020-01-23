@@ -11,7 +11,7 @@ export class Provider extends Component {
       task: '',
       priority: 2,
       completed: true,
-      id: '42',
+      id: null,
       loading: false
     }
   }
@@ -26,40 +26,65 @@ export class Provider extends Component {
     });
   };
 
-  async postTask(task, priority) {
-    const response = await fetch('/task', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: {
-        task,
-        priority
-      }
-    });
-    return await response.json();
-  };
-
-  async updateTask(text) {
+  updateTask(text) {
     if (text != this.state.task) {
       this.setState({
         loading: true,
         task: text
       });
-      await postTask(text, this.state.priority)
-    } 
-  }
+      if (this.state.id === null) {
+        fetch('/task', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            task: text,
+            priority: this.state.priority
+          })
+        })
+        .then(response => response.json())
+        .then(parsed => {
+          this.setState({
+            loading: false,
+            id: parsed[0].id
+          })
+          console.log(parsed, this.state.id)})
+      } else {
+        if (text !== '') {
+          fetch('/task', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              task: text,
+              id: this.state.id
+            })
+          })
+        } else {
+          fetch('/task', {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              id: this.state.id
+            })
+          })
+        }
+      }
+    }
+  };
 
-  componentDidMount() {
 
-  }
+
 
   render () {
     return (
       <Context.Provider value={{store: this, state: this.state}}>
         {this.props.children}
       </Context.Provider>
-
     )
   }
 }

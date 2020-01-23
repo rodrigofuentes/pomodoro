@@ -1,5 +1,5 @@
 const authController = {};
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 authController.loginUser = (req, res, next) => {
   //if user has hit the login button and EXISTS, log in
