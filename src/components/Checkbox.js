@@ -1,25 +1,20 @@
 import React from 'react';
-import { Context } from './Context'
+import { Consumer } from './Context'
 
 export const Checkbox = () => {
   return (
-    <Context.Consumer>
-      {({store, state}) => (
+    <Consumer>
+      {({ store }) => (
         <div>
           {'Completed: '}
           <input 
             type="checkbox" 
             name="checkbox"
             onChange={() => {store.toggleCompleted()}}
-            onClick={() => {console.log('onClick: task--', state.task)}}
             defaultChecked
             /><br/>
         </div>
       )} 
-    </Context.Consumer>
+    </Consumer>
   )
 }
-
-// export const Checkbox = ({toggle, completed}) => {
-// onClick={toggle()}
-{/* {...completed ? checked: ''} */}
