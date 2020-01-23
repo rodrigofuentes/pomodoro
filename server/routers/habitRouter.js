@@ -16,9 +16,14 @@ habitRouter.post('/', habitController.addHabit, (req, res) => {
 });
 
 // handle updating a Habit....but do we even have/need this functionality?
-habitRouter.put('/', habitController.updateHabit, (req, res) => {
+habitRouter.put('/update', habitController.updateHabit, (req, res) => {
   console.log('habitRouter: Inside UPDATE');
-  res.status(200).json();
+  res.status(200).json(res.locals.updated);
+});
+
+habitRouter.put('/toggle', habitController.toggleHabit, (req, res) => {
+  console.log('habitRouter: Inside TOGGLE');
+  res.status(200).json(res.locals.completed);
 });
 
 // handle deleting a Habit
