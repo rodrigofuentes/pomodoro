@@ -1,5 +1,10 @@
 const sessionController = {};
 
+const now = new Date(Date.now());
+console.log(now.getMinutes());
+
+console.log(now.getMinutes());
+
 /*
 This controller creates a session cookie that expires midnight daily.
 It is used to determine whether to GET tasks/habits/notes on load-in
@@ -13,16 +18,22 @@ sessionController.lookupSession = (req, res, next) => {
 
   //first perform a check to see if the user has a 'day' cookie
 
-  if (res.cookies.day){
+  if (req.cookies.today && !req.cookies.day){
     //TODO: ensure that we don't need additional logic here to prevent overfetching
     next();
+  } else if (req.cookies.day){
+    //if you have a 'day' cookie set, pull that day's value
+
+    next();
+
   } else {
-    //if you have no 'day' cookie set, set one with sessionController.createSession
+    //if you have no 'today' or 'day' cookie set, set one with sessionController.createSession
     //then use normal getTasks logic to find any for today
     //TODO: determine how we want to send results of this checker middleware to front-end
-  next();
+    next();
   }
 };
+
 
 //if you have entered this middleware, you have been authenticated
 sessionController.createSession = (req, res, next) => {
@@ -36,7 +47,7 @@ sessionController.createSession = (req, res, next) => {
   let year = now.getUTCFullYear();
   const today = `${year}-${month}-${day}`;
 
-  res.cookie('day', `${today}`, {expires : expirationDate});
+  res.cookie('today', `${today}`, {expires : expirationDate});
   next();
 };
 
@@ -45,7 +56,7 @@ sessionController.pastSession = (req, res, next) => {
   const now = new Date(Date.now());
   const midnight = new Date();
   midnight.setHours(23,59,59,0);
-  const expirationDate = midnight - today;
+  const fiveMinutesFromNow = now.setMinutes(now.getMinutes() + 5);
 
   let month = now.getUTCMonth() + 1;
   let day = now.getUTCDate();
@@ -84,9 +95,9 @@ sessionController.pastSession = (req, res, next) => {
     day = zeroLeading;
   }
 
-  delete res.cookies.day;
+  delete req.cookies.day;
   const currentDay = `${year}-${month}-${day}`;
-  res.cookie('day', `${currentDay}`, {expires: expirationDate});
+  res.cookie('day', `${currentDay}`, {expires: fiveMinutesFromNow});
   next();
 };
 
@@ -95,7 +106,7 @@ sessionController.futureSession = (req, res, next) => {
   const now = new Date(Date.now());
   const midnight = new Date();
   midnight.setHours(23,59,59,0);
-  const expirationDate = midnight - today;
+  const fiveMinutesFromNow = now.setMinutes(now.getMinutes() + 5);
 
   let month = now.getUTCMonth() + 1;
   let day = now.getUTCDate();
@@ -133,8 +144,8 @@ sessionController.futureSession = (req, res, next) => {
     day = zeroLeading;
   }
 
-  delete res.cookies.day;
+  delete req.cookies.day;
   const currentDay = `${year}-${month}-${day}`;
-  res.cookie('day', `${currentDay}`, {expires: expirationDate});
+  res.cookie('day', `${currentDay}`, {expires: fiveMinutesFromNow});
   next();
 };
