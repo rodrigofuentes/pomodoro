@@ -31,12 +31,12 @@ app.get('/', (req, res) => {
 });
 
 // handle login requests
-app.post('/login', (req, res) => {
-  res.status(200).json();
+app.post('/login', authController.loginUser, authController.setCookie, (req, res) => {
+  res.status(200).json('Auth succeeded');
 });
 
 // handle signup requests
-app.post('/signup', (req, res) => {
+app.post('/register', authController.registerUser, authController.setCookie, (req, res) => {
   res.status(200).json();
 });
 
