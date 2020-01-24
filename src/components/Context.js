@@ -63,13 +63,11 @@ export class Provider extends Component {
   };
 
   updateTask(target) {
-    if (target.attributes.class.value === 'task') {
-      if (target.value !== '') {
-        this.setState({
-          loading: true,
-        });
-        // this.changeState(target.name, 'task', target.value)
-        console.log('updateTaskState:', this.getState(target.name).task)
+    // if (target.attributes.class.value === 'task') {
+      // if (target.value !== '') {
+      //   // this.setState({
+      //   //   loading: true,
+      //   // });
         if (target.id === 'none' || this.getState(target.name).status === 'deleted') {
           fetch('/task', {
             method: 'POST',
@@ -83,67 +81,53 @@ export class Provider extends Component {
           })
           .then(response => response.json())
           .then(parsed => {
-            this.setState({
-              loading: false,
-            })
+            // this.setState({
+            //   loading: false,
+            // })
             this.changeState(target.name, 'disabled', false)
             this.changeState(target.name, 'id', parsed[0].id);
             this.changeState(target.name, 'status', 'active')
-            // target.id=parsed[0].id
-            // target.attributes.status.value = "active";
-
-            // const deleteButton = document.getElementsByClassName("delete");
-            // for (let element of deleteButton) {
-            //   if (element.name === target.attributes.priority.value) {
-            //     element.setAttribute('id', target.id);
-            //     // elem.removeAttribute('disabled')
-            //   }
-            // }
-            // const prior = target.attributes.priority.value;
-            // const checkBox = document.getElementsByClassName("checkbox");
-            // for (let elem of checkBox) {
-            //   if (elem.name === prior) {
-            //     elem.setAttribute('id', target.id);
-            //     // elem.removeAttribute('disabled')
-            //     console.log('checkbox element:::', elem)
-            //   }
-            // }
           })
         } else {
-          fetch('/task', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              task: target.value,
-              id: target.id
+          if (target.value !== '') {
+            fetch('/task', {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                task: target.value,
+                id: target.id
+              })
             })
-          })
+          } else {
+            fetch('/task', {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                id: target.id
+              })
+            });
+            this.clearTaskState(target.name);
+          }
         }
-      }
-    } else if (target.attributes.class.value === 'delete') {
-      if (target.id !== 'none') {
-        fetch('/task', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id: target.id
-          })
-        });
-        // const textFields = document.getElementsByClassName("task");
-        // for (let element of textFields) {
-        //   if (element.name === target.name) {
-        //     element.value = '';
-        //     element.setAttribute('status', 'deleted');
-        //     console.log('DELETD ELEMTN ::', element)
-        //   }
-        // }
-        this.clearTaskState(target.name);
-      }
-    }
+      // }
+    // } else if (target.attributes.class.value === 'delete') {
+    //   if (target.id !== 'none') {
+    //     fetch('/task', {
+    //       method: 'DELETE',
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       },
+    //       body: JSON.stringify({
+    //         id: target.id
+    //       })
+    //     });
+    //     this.clearTaskState(target.name);
+    //   }
+    // }
   };
 
   componentDidMount() {

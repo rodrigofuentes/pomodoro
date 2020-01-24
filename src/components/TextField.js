@@ -19,10 +19,10 @@ export const TextField = ({ priority }) => {
             onBlur={(e) => {store.updateTask(e.target)}}
             onKeyPress={(e) => {e.key === "Enter" ? store.updateTask(e.target) : ''}} 
             /><br/>
-          <button disabled={state.taskArray[priority].disabled} className="delete" id={state.taskArray[priority].id} name={priority} priority={priority} onClick={(e) => {store.updateTask(e.target)}}>Delete Task</button>
         </div>
       )}
     </Consumer>
   )
 }
-// store.updateTask(e.target) 
+
+{/* <button disabled={state.taskArray[priority].disabled} className="delete" id={state.taskArray[priority].id} name={priority} priority={priority} onClick={(e) => {store.updateTask(e.target)}}>Delete Task</button> */}
