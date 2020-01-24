@@ -6,18 +6,20 @@ export const TextField = ({ priority }) => {
     <Consumer>
       {({store, state}) => (
         <div>
-          <input 
-            id="none"
+          <input
+            id={state.taskArray[priority].id}
             type="text" 
             className="task" 
             name={priority}
             priority={priority}
-            status='active'
+            status={state.taskArray[priority].status}
             placeholder="Enter Next Task"
-            onBlur={(e) => {store.updateTask(e.target); console.log(e.target.attributes, e.target.attributes.priority.value, 'id :::::' , e.target.id)}}
-            onKeyPress={(e) => { e.key === "Enter" ? store.updateTask(e.target) : ''}}   
+            value={state.taskArray[priority].task}
+            onChange={(e) => store.changeState(priority, 'task', e.target.value)}
+            onBlur={(e) => {store.updateTask(e.target)}}
+            onKeyPress={(e) => {e.key === "Enter" ? store.updateTask(e.target) : ''}} 
             /><br/>
-          <button className="delete" id="none" name={priority} priority={priority} onClick={(e) => {store.updateTask(e.target); console.log(e.target.attributes.class.value)}}>Delete Task</button>
+          <button disabled={state.taskArray[priority].disabled} className="delete" id={state.taskArray[priority].id} name={priority} priority={priority} onClick={(e) => {store.updateTask(e.target)}}>Delete Task</button>
         </div>
       )}
     </Consumer>

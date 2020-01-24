@@ -8,7 +8,7 @@ export const TaskContainer = ({ priority }) => {
   return (
     <div>
       Task {priority}
-      <Checkbox />
+      <Checkbox priority={priority} />
       <TextField priority={priority} />
       <Pomodoros />
 

@@ -57,17 +57,17 @@ export class TaskList extends Component {
     return (
       <div>
         <h3>Most important Task of the Day</h3>
-        <TaskContainer priority= {1} />
+        <TaskContainer priority={1} />
         <h3>Other Important Tasks</h3>
-        <TaskContainer priority= {2} />
+        <TaskContainer priority={2} />
         <br/>
-        <TaskContainer priority= {3} />
+        <TaskContainer priority={3} />
         <h3>Additional Tasks</h3>
-        <TaskContainer priority= {4} />
+        <TaskContainer priority={4} />
         <br/>
-        <TaskContainer priority= {5} />
+        <TaskContainer priority={5} />
         <br/>
-        <TaskContainer priority= {6} />
+        <TaskContainer priority={6} />
         <br/>
         <button onClick={() => console.log('clicked Add')}>Add New To Do Item</button>
         <button onClick={() => console.log('clicked Remove')}>Remove Last To Do Item </button>
